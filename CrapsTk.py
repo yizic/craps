@@ -1,5 +1,6 @@
 from tkinter import *
 from random import *
+from File import *
 
 #1er ecran
 
@@ -49,7 +50,7 @@ png_des = PhotoImage(file="image/des.png")
 
 question = Label(fenetre, text = "Souhaitez vous jouer contre une IA ou contre un ami", background = "white")
 bouton_IA = Button(fenetre, text = "Contre une IA", command = jouer)
-bouton_ami = Button(fenetre, text = "Contre un ami", command = voir_doc)
+bouton_ami = Button(fenetre, text = "Contre un ami", command = File.voir_doc)
 
 canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
 canregle = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
