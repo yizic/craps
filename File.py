@@ -1,6 +1,5 @@
 from tkinter import *
 from random import *
-from PIL import Image
 
 class File:
 
@@ -20,11 +19,6 @@ class File:
         self.bouton_part5_Grillot = None
         self.bouton_part6_Cizet = None
         self.bouton_part6_Grillot = None
-        '''
-        self.photo_CV_Grillot_Brian = None
-        self.im_CV_Grillot_Brian = None
-        self.can_CV_Grillot_Brian = None
-        '''
         self.imagePhrase = None
         self.canimgphrase = None
         self.imphrase = None
