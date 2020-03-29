@@ -27,6 +27,9 @@ class File:
         self.imagePhrase = None
         self.canimgphrase = None
         self.imphrase = None
+        self.photo =None
+        self.canphoto =None
+        self.imphoto =None
 
     def debutDoc(self):
         self.imphrase = self.canimgphrase.create_image(340, 55, image=self.imagePhrase)
@@ -52,8 +55,13 @@ class File:
         self.can_CV_Grillot_Brian.grid(row=1, column=0, columnspan=1)
         '''
 
-    def afficher_doc():
-        print("coucou")
+    def afficher_doc(self, value):
+        popup = Tk()
+        self.photo = PhotoImage(master=popup, file=value)
+        self.canphoto = Canvas(popup, width=794, height= 1123, background ="white", highlightthickness =  0)
+        self.imphoto = self.canphoto.create_image(794/2, 1123/2, image= self.photo)
+        self.canphoto.grid(row=0,column=0)
+        popup.mainloop()
 
     def voir_doc():
         fic = File()
@@ -86,20 +94,20 @@ class File:
         fic.canimgphrase = Canvas(fenetreDoc, width=660, height=100, background ="white", highlightthickness =  0)
 
         fic.questionDoc = Label(fenetreDoc, text = "Quel fichier voulez-vous afficher?", background = "white")
-        fic.bouton_CV_Grillot = Button(fenetreDoc, text = "CV Grillot Brian", command = File.afficher_doc)
-        fic.bouton_CV_Cizet = Button(fenetreDoc, text = "CV Cizet Vincent", command = File.afficher_doc)
-        fic.bouton_part1_Grillot = Button(fenetreDoc, text = "P1 Grillot Brian", command = File.afficher_doc)
-        fic.bouton_part1_Cizet = Button(fenetreDoc, text = "P1 Cizet Vincent", command = File.afficher_doc)
-        fic.bouton_part2_Grillot = Button(fenetreDoc, text = "P2 Grillot Brian", command = File.afficher_doc)
-        fic.bouton_part2_Cizet = Button(fenetreDoc, text = "P2 Cizet Vincent", command = File.afficher_doc)
-        fic.bouton_part3_Grillot = Button(fenetreDoc, text = "P3 Grillot Brian", command = File.afficher_doc)
-        fic.bouton_part3_Cizet = Button(fenetreDoc, text = "P3 Cizet Vincent", command = File.afficher_doc)
-        fic.bouton_part4_Grillot = Button(fenetreDoc, text = "P4 Grillot Brian", command = File.afficher_doc)
-        fic.bouton_part4_Cizet = Button(fenetreDoc, text = "P4 Cizet Vincent", command = File.afficher_doc)
-        fic.bouton_part5_Grillot = Button(fenetreDoc, text = "P5 Grillot Brian", command = File.afficher_doc)
-        fic.bouton_part5_Cizet = Button(fenetreDoc, text = "P5 Cizet Vincent", command = File.afficher_doc)
-        fic.bouton_part6_Grillot = Button(fenetreDoc, text = "P6 Grillot Brian", command = File.afficher_doc)
-        fic.bouton_part6_Cizet = Button(fenetreDoc, text = "P6 Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_CV_Grillot = Button(fenetreDoc, text = "CV Grillot Brian", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_CV_Cizet = Button(fenetreDoc, text = "CV Cizet Vincent", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part1_Grillot = Button(fenetreDoc, text = "P1 Grillot Brian", command = lambda:fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part1_Cizet = Button(fenetreDoc, text = "P1 Cizet Vincent", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part2_Grillot = Button(fenetreDoc, text = "P2 Grillot Brian", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part2_Cizet = Button(fenetreDoc, text = "P2 Cizet Vincent", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part3_Grillot = Button(fenetreDoc, text = "P3 Grillot Brian", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part3_Cizet = Button(fenetreDoc, text = "P3 Cizet Vincent", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part4_Grillot = Button(fenetreDoc, text = "P4 Grillot Brian", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part4_Cizet = Button(fenetreDoc, text = "P4 Cizet Vincent", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part5_Grillot = Button(fenetreDoc, text = "P5 Grillot Brian", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part5_Cizet = Button(fenetreDoc, text = "P5 Cizet Vincent", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part6_Grillot = Button(fenetreDoc, text = "P6 Grillot Brian", command = lambda: fic.afficher_doc("image/CV_Grillot_Brian.png"))
+        fic.bouton_part6_Cizet = Button(fenetreDoc, text = "P6 Cizet Vincent", command = lambda: Ffic.afficher_doc("image/CV_Grillot_Brian.png"))
         fic.debutDoc()
 
         #titre fenetreDoc
