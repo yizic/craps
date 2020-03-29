@@ -3,20 +3,62 @@ from random import *
 
 class File:
 
-    __slot__ = (
-        "questionDoc"
-    )
-
-    def __init__(self, questionDoc=None):
-        self.questionDoc = questionDoc
+    def __init__(self):
+        self.questionDoc = None
+        self.bouton_CV_Grillot = None
+        self.bouton_CV_Cizet = None
+        self.bouton_part1_Grillot = None
+        self.bouton_part1_Cizet = None
+        self.bouton_part2_Cizet = None
+        self.bouton_part2_Grillot = None
+        self.bouton_part3_Cizet = None
+        self.bouton_part3_Grillot = None
+        self.bouton_part4_Cizet = None
+        self.bouton_part4_Grillot = None
+        self.bouton_part5_Cizet = None
+        self.bouton_part5_Grillot = None
+        self.bouton_part6_Cizet = None
+        self.bouton_part6_Grillot = None
+        '''
+        self.photo_CV_Grillot_Brian = None
+        self.im_CV_Grillot_Brian = None
+        self.can_CV_Grillot_Brian = None
+        '''
+        self.imagePhrase = None
+        self.canimgphrase = None
+        self.imphrase = None
 
     def debutDoc(self):
+        self.imphrase = self.canimgphrase.create_image(340, 55, image=self.imagePhrase)
+        self.canimgphrase.grid(row=0, columnspan = 4)
         self.questionDoc.grid(row=1, column=1, columnspan=2)
+        self.bouton_CV_Grillot.grid(row=2, column=1)
+        self.bouton_CV_Cizet.grid(row=2, column=2)
+        self.bouton_part1_Grillot.grid(row=3, column=1)
+        self.bouton_part1_Cizet.grid(row=3, column=2)
+        self.bouton_part2_Grillot.grid(row=4, column=1)
+        self.bouton_part2_Cizet.grid(row=4, column=2)
+        self.bouton_part3_Grillot.grid(row=5, column=1)
+        self.bouton_part3_Cizet.grid(row=5, column=2)
+        self.bouton_part4_Grillot.grid(row=6, column=1)
+        self.bouton_part4_Cizet.grid(row=6, column=2)
+        self.bouton_part5_Grillot.grid(row=7, column=1)
+        self.bouton_part5_Cizet.grid(row=7, column=2)
+        self.bouton_part6_Grillot.grid(row=8, column=1)
+        self.bouton_part6_Cizet.grid(row=8, column=2)
+        '''
+        self.im_CV_Grillot_Brian = self.can_CV_Grillot_Brian.create_image(165, 118, image= self.photo_CV_Grillot_Brian)
+        
+        self.can_CV_Grillot_Brian.grid(row=1, column=0, columnspan=1)
+        '''
+
+    def afficher_doc():
+        print("coucou")
 
     def voir_doc():
         fic = File()
         #crétion fenetreDoc
-        fenetreDoc = Tk()
+        fenetreDoc = Toplevel()
 
         #taille fenetreDoc + couleur
 
@@ -32,10 +74,32 @@ class File:
         fenetreDoc.geometry("+{}+{}".format(positionRight, positionDown))
 
         #truc a utiliser et detruire (ou remove)
+        '''
+        fic.photo_CV_Grillot_Brian = PhotoImage(file="image/CV_Grillot_Brian.png")
 
 
-        fic.questionDoc = Label(fenetreDoc, text = "Souhaitez vous jouer contre une IA ou contre un ami", background = "white")
+        fic.can_CV_Grillot_Brian = Canvas(fenetreDoc, width=330, height= 237, background ="white", highlightthickness =  0)
+        '''
+        
+        fic.imagePhrase = PhotoImage(file="image/leJeuDuMorpion.png")
+        
+        fic.canimgphrase = Canvas(fenetreDoc, width=660, height=100, background ="white", highlightthickness =  0)
 
+        fic.questionDoc = Label(fenetreDoc, text = "Quel fichier voulez-vous afficher?", background = "white")
+        fic.bouton_CV_Grillot = Button(fenetreDoc, text = "CV Grillot Brian", command = File.afficher_doc)
+        fic.bouton_CV_Cizet = Button(fenetreDoc, text = "CV Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_part1_Grillot = Button(fenetreDoc, text = "P1 Grillot Brian", command = File.afficher_doc)
+        fic.bouton_part1_Cizet = Button(fenetreDoc, text = "P1 Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_part2_Grillot = Button(fenetreDoc, text = "P2 Grillot Brian", command = File.afficher_doc)
+        fic.bouton_part2_Cizet = Button(fenetreDoc, text = "P2 Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_part3_Grillot = Button(fenetreDoc, text = "P3 Grillot Brian", command = File.afficher_doc)
+        fic.bouton_part3_Cizet = Button(fenetreDoc, text = "P3 Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_part4_Grillot = Button(fenetreDoc, text = "P4 Grillot Brian", command = File.afficher_doc)
+        fic.bouton_part4_Cizet = Button(fenetreDoc, text = "P4 Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_part5_Grillot = Button(fenetreDoc, text = "P5 Grillot Brian", command = File.afficher_doc)
+        fic.bouton_part5_Cizet = Button(fenetreDoc, text = "P5 Cizet Vincent", command = File.afficher_doc)
+        fic.bouton_part6_Grillot = Button(fenetreDoc, text = "P6 Grillot Brian", command = File.afficher_doc)
+        fic.bouton_part6_Cizet = Button(fenetreDoc, text = "P6 Cizet Vincent", command = File.afficher_doc)
         fic.debutDoc()
 
         #titre fenetreDoc

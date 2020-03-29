@@ -48,9 +48,9 @@ imagePhrase = PhotoImage(file="image/leJeuDuMorpion.png")
 regle = PhotoImage(file="image/regle.png")
 png_des = PhotoImage(file="image/des.png")
 
-question = Label(fenetre, text = "Souhaitez vous jouer contre une IA ou contre un ami", background = "white")
+question = Label(fenetre, text = "Que souhaitez-vous faire?", background = "white")
 bouton_IA = Button(fenetre, text = "Contre une IA", command = jouer)
-bouton_ami = Button(fenetre, text = "Contre un ami", command = File.voir_doc)
+bouton_ami = Button(fenetre, text = "Consulter les documents", command = File.voir_doc)
 
 canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
 canregle = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
