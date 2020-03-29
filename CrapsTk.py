@@ -7,10 +7,10 @@ def debut():
 
     imphrase = canimgphrase.create_image(340, 55, image=imagePhrase)
     canimgphrase.grid(row=0, columnspan = 4)
-    imregle= canregle.create_image(165, 118, image= regle)
+    imregle= canregle.create_image(200, 120, image= regle)
     canregle.grid(row=3, column =0, columnspan = 2)
-    image_des= canmorpion.create_image(165, 118, image= png_des)
-    canmorpion.grid(row=3, column =2, columnspan = 2)
+    image_des= cancraps.create_image(165, 118, image= png_des)
+    cancraps.grid(row=3, column =2, columnspan = 2)
 
     question.grid(row=1, column=1, columnspan=2)
     bouton_IA.grid(row=2, column=1)
@@ -30,7 +30,7 @@ fenetre = Tk()
 
 #taille fenetre + couleur
 
-fenetre.geometry("663x450")
+fenetre.geometry("820x450")
 fenetre.configure(background="white")
 
 #positionner la fenetre au mileu et non pas dans un coin de lécran(Vive les tuto)
@@ -43,17 +43,17 @@ fenetre.geometry("+{}+{}".format(positionRight, positionDown))
 
 #truc a utiliser et detruire (ou remove)
 
-imagePhrase = PhotoImage(file="image/leJeuDuMorpion.png")
+imagePhrase = PhotoImage(file="image/jeuDuCraps.png")
 regle = PhotoImage(file="image/regle.png")
 png_des = PhotoImage(file="image/des.png")
 
-question = Label(fenetre, text = "Souhaitez vous jouer contre une IA ou contre un ami", background = "white")
-bouton_IA = Button(fenetre, text = "Contre une IA", command = jouer)
-bouton_ami = Button(fenetre, text = "Contre un ami", command = voir_doc)
+question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
+bouton_IA = Button(fenetre, text = "jouer", command = jouer)
+bouton_ami = Button(fenetre, text = "voir les documents", command = voir_doc)
 
 canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
-canregle = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
-canmorpion = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
+canregle = Canvas(fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
+cancraps = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
 
 bouton_quit = Button(fenetre, text="quitter", command= fenetre.destroy)
 
@@ -61,7 +61,7 @@ debut()
 
 #titre fenetre
 
-fenetre.title("MORPION")
+fenetre.title("Craps")
 
 #fini
 
