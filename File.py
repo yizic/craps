@@ -1,5 +1,6 @@
 from tkinter import *
 from random import *
+from PIL import Image
 
 class File:
 
@@ -49,17 +50,13 @@ class File:
         self.bouton_part5_Cizet.grid(row=7, column=2)
         self.bouton_part6_Grillot.grid(row=8, column=1)
         self.bouton_part6_Cizet.grid(row=8, column=2)
-        '''
-        self.im_CV_Grillot_Brian = self.can_CV_Grillot_Brian.create_image(165, 118, image= self.photo_CV_Grillot_Brian)
-        
-        self.can_CV_Grillot_Brian.grid(row=1, column=0, columnspan=1)
-        '''
 
     def afficher_doc(self, value):
         popup = Tk()
+
         self.photo = PhotoImage(master=popup, file=value)
-        self.canphoto = Canvas(popup, width=794, height= 1123, background ="white", highlightthickness =  0)
-        self.imphoto = self.canphoto.create_image(794/2, 1123/2, image= self.photo)
+        self.canphoto = Canvas(popup, width=529, height= 750, background ="white", highlightthickness =  0)
+        self.imphoto = self.canphoto.create_image(529/2, 750/2, image= self.photo)
         self.canphoto.grid(row=0,column=0)
         popup.mainloop()
 
@@ -82,12 +79,6 @@ class File:
         fenetreDoc.geometry("+{}+{}".format(positionRight, positionDown))
 
         #truc a utiliser et detruire (ou remove)
-        '''
-        fic.photo_CV_Grillot_Brian = PhotoImage(file="image/CV_Grillot_Brian.png")
-
-
-        fic.can_CV_Grillot_Brian = Canvas(fenetreDoc, width=330, height= 237, background ="white", highlightthickness =  0)
-        '''
         
         fic.imagePhrase = PhotoImage(file="image/leJeuDuMorpion.png")
         
