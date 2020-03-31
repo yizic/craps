@@ -1,5 +1,6 @@
 from tkinter import *
 from random import *
+from File import *
 
 #1er ecran
 
@@ -47,9 +48,9 @@ imagePhrase = PhotoImage(file="image/jeuDuCraps.png")
 regle = PhotoImage(file="image/regle.png")
 png_des = PhotoImage(file="image/des.png")
 
-question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
-bouton_IA = Button(fenetre, text = "jouer", command = jouer)
-bouton_ami = Button(fenetre, text = "voir les documents", command = voir_doc)
+question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents?", background = "white")
+bouton_IA = Button(fenetre, text = "Jouer", command = jouer)
+bouton_ami = Button(fenetre, text = "Consulter les documents", command = File.voir_doc)
 
 canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
 canregle = Canvas(fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
