@@ -31,6 +31,7 @@ class File:
         self.photo =None
         self.canphoto =None
         self.imphoto =None
+        self.raport=None
 
     def debutDoc(self):
         self.imphrase = self.canimgphrase.create_image(340, 55, image=self.imagePhrase)
@@ -87,11 +88,14 @@ class File:
                 
             
             fichier.close()
-
+            
+            self.raport = Label(popup, text = text, background = "white", justify ='left', wraplength = 1000)
+            self.raport.grid(row=0,column=0)
+            """
             self.canphoto = Canvas(popup, width=529, height= 750, background ="white", highlightthickness =  0)
             self.canphoto.create_text(529/2,750/2,fill="black",font="Times 20",
                         text=text)
-            self.canphoto.grid(row=0,column=0)
+            self.canphoto.grid(row=0,column=0)"""
 
         popup.mainloop()
 
