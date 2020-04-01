@@ -1,5 +1,6 @@
 from tkinter import *
 from random import *
+from subprocess  import call
 
 #1er ecran
 
@@ -13,16 +14,20 @@ def debut():
     cancraps.grid(row=3, column =2, columnspan = 2)
 
     question.grid(row=1, column=1, columnspan=2)
-    bouton_IA.grid(row=2, column=1)
-    bouton_ami.grid(row=2, column=2)
+    bouton_jouer.grid(row=2, column=1)
+    bouton_docs.grid(row=2, column=2)
 
 def voir_doc():
 
     print("Document")
 
 def jouer():
-    #quand tu joue seul
+    #Lancer le jeu du craps
     print("jouer")
+
+    fenetre.destroy
+    
+    call(["python ./jeu.py"])
 
 #crétion fenetre
 
@@ -48,8 +53,8 @@ regle = PhotoImage(file="image/regle.png")
 png_des = PhotoImage(file="image/des.png")
 
 question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
-bouton_IA = Button(fenetre, text = "jouer", command = jouer)
-bouton_ami = Button(fenetre, text = "voir les documents", command = voir_doc)
+bouton_jouer = Button(fenetre, text = "jouer", command = jouer)
+bouton_docs = Button(fenetre, text = "voir les documents", command = voir_doc)
 
 canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
 canregle = Canvas(fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
