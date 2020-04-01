@@ -1,6 +1,6 @@
 from tkinter import *
 from random import *
-from subprocess  import call
+import subprocess
 from File import *
 
 
@@ -29,7 +29,7 @@ def jouer():
 
     fenetre.destroy
     
-    call(["python ./jeu.py"])
+    subprocess.call(["start python jeu.py"])
 
 #crétion fenetre
 
