@@ -19,9 +19,6 @@ def debut():
     bouton_jouer.grid(row=2, column=1)
     bouton_docs.grid(row=2, column=2)
 
-def voir_doc():
-
-    print("Document")
 
 def jouer():
     #Lancer le jeu du craps
@@ -56,7 +53,7 @@ png_des = PhotoImage(file="image/des.png")
 
 question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
 bouton_jouer = Button(fenetre, text = "jouer", command = jouer)
-bouton_docs = Button(fenetre, text = "voir les documents", command = voir_doc)
+bouton_docs = Button(fenetre, text = "voir les documents", command = File.voir_doc)
 
 canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
 canregle = Canvas(fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
