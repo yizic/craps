@@ -31,6 +31,8 @@ class File:
         self.photo =None
         self.canphoto =None
         self.imphoto =None
+        self.raport=None
+        self.raport2=None
 
     def debutDoc(self):
         self.imphrase = self.canimgphrase.create_image(340, 55, image=self.imagePhrase)
@@ -70,6 +72,7 @@ class File:
         else: 
             
             text = ""
+            text1 = ""
             fichier = open(value, "r")
 
             ecrire = False
@@ -82,16 +85,20 @@ class File:
                 elif partiesuiv in ligne:
                     ecrire = False
                 if ecrire:
-                    text += ligne
-                    line1 = False
+                    if line1:
+                        text1 += ligne
+                        line1=False
+                    else:
+                        text += ligne
+                        line1 = False
                 
             
             fichier.close()
-
-            self.canphoto = Canvas(popup, width=529, height= 750, background ="white", highlightthickness =  0)
-            self.canphoto.create_text(529/2,750/2,fill="black",font="Times 20",
-                        text=text)
-            self.canphoto.grid(row=0,column=0)
+            
+            self.raport = Label(popup, text = text1, justify ='center', wraplength = 1000, font=("Arial", 18))
+            self.raport.grid(row=0,column=0)
+            self.raport2 = Label(popup, text = text, justify ='left', wraplength = 1000, font=("Arial", 12))
+            self.raport2.grid(row=1,column=0)
 
         popup.mainloop()
 
