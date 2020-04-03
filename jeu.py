@@ -160,7 +160,8 @@ class craps:
         game.IntroLab = Label(fenetreGame, text = game.regles, background = "white")
         #game.IntroLab.pack()
 
-
+        game.debut_jeu()
+        
         #titre fenetreGame
 
         fenetreGame.title("jeu")
