@@ -63,7 +63,7 @@ class CrapsTk:
         Crapy.png_des = PhotoImage(file="image/des.png")
 
         Crapy.question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
-        Crapy.bouton_jouer = Button(fenetre, text = "jouer", command = craps.lancer_jeu)
+        Crapy.bouton_jouer = Button(fenetre, text = "jouer", command = craps.voir_jeu)
         Crapy.bouton_docs = Button(fenetre, text = "voir les documents", command = File.voir_doc)
 
         Crapy.canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
