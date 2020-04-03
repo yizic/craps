@@ -2,71 +2,86 @@ from tkinter import *
 from random import *
 import subprocess
 from File import *
+from Jeu import *
 
 
 #1er ecran
 
-def debut():
+class CrapsTk:
 
-    imphrase = canimgphrase.create_image(340, 55, image=imagePhrase)
-    canimgphrase.grid(row=0, columnspan = 4)
-    imregle= canregle.create_image(200, 120, image= regle)
-    canregle.grid(row=3, column =0, columnspan = 2)
-    image_des= cancraps.create_image(165, 118, image= png_des)
-    cancraps.grid(row=3, column =2, columnspan = 2)
+    def __init__(self):
+        self.imphrase = None
+        self.canimgphrase = None
+        self.imregle = None
+        self.canregle = None
+        self.image_des = None
+        self.cancraps = None
+        self.question = None
+        self.bouton_jouer = None
+        self.bouton_docs = None
+        self.imagePhrase = None
+        self.regle = None
+        self.png_des = None
 
-    question.grid(row=1, column=1, columnspan=2)
-    bouton_jouer.grid(row=2, column=1)
-    bouton_docs.grid(row=2, column=2)
+    def debut(self):
 
+        self.imphrase = self.canimgphrase.create_image(340, 55, image = self.imagePhrase)
+        self.canimgphrase.grid(row=0, columnspan = 4)
+        self.imregle = self.canregle.create_image(200, 120, image = self.regle)
+        self.canregle.grid(row=3, column =0, columnspan = 2)
+        self.image_des = self.cancraps.create_image(165, 118, image = self.png_des)
+        self.cancraps.grid(row=3, column =2, columnspan = 2)
 
-def jouer():
-    #Lancer le jeu du craps
-    print("jouer")
+        self.question.grid(row=1, column=1, columnspan=2)
+        self.bouton_jouer.grid(row=2, column=1)
+        self.bouton_docs.grid(row=2, column=2)
 
-    fenetre.destroy
-    
-    subprocess.call(["start python jeu.py"])
+    #crétion fenetre
+    def creation_premiere_fenetre():
 
-#crétion fenetre
+        Crapy = CrapsTk()
 
-fenetre = Tk()
+        fenetre = Tk()
 
-#taille fenetre + couleur
+        #taille fenetre + couleur
 
-fenetre.geometry("820x450")
-fenetre.configure(background="white")
+        fenetre.geometry("820x450")
+        fenetre.configure(background="white")
 
-#positionner la fenetre au mileu et non pas dans un coin de lécran(Vive les tuto)
+        #positionner la fenetre au mileu et non pas dans un coin de lécran(Vive les tuto)
 
-windowWidth = fenetre.winfo_reqwidth()
-windowHeight = fenetre.winfo_reqheight()
-positionRight = int(fenetre.winfo_screenwidth()/3 - windowWidth/2)
-positionDown = int(fenetre.winfo_screenheight()/3 - windowHeight/2)
-fenetre.geometry("+{}+{}".format(positionRight, positionDown))
+        windowWidth = fenetre.winfo_reqwidth()
+        windowHeight = fenetre.winfo_reqheight()
+        positionRight = int(fenetre.winfo_screenwidth()/3 - windowWidth/2)
+        positionDown = int(fenetre.winfo_screenheight()/3 - windowHeight/2)
+        fenetre.geometry("+{}+{}".format(positionRight, positionDown))
 
-#truc a utiliser et detruire (ou remove)
+        #truc a utiliser et detruire (ou remove)
 
-imagePhrase = PhotoImage(file="image/jeuDuCraps.png")
-regle = PhotoImage(file="image/regle.png")
-png_des = PhotoImage(file="image/des.png")
+        Crapy.imagePhrase = PhotoImage(file="image/jeuDuCraps.png")
+        Crapy.regle = PhotoImage(file="image/regle.png")
+        Crapy.png_des = PhotoImage(file="image/des.png")
 
-question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
-bouton_jouer = Button(fenetre, text = "jouer", command = jouer)
-bouton_docs = Button(fenetre, text = "voir les documents", command = File.voir_doc)
+        Crapy.question = Label(fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
+        Crapy.bouton_jouer = Button(fenetre, text = "jouer", command = craps.lancer_jeu)
+        Crapy.bouton_docs = Button(fenetre, text = "voir les documents", command = File.voir_doc)
 
-canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
-canregle = Canvas(fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
-cancraps = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
+        Crapy.canimgphrase = Canvas(fenetre, width=660, height=100, background ="white", highlightthickness =  0)
+        Crapy.canregle = Canvas(fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
+        Crapy.cancraps = Canvas(fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
 
-bouton_quit = Button(fenetre, text="quitter", command= fenetre.destroy)
+        Crapy.bouton_quit = Button(fenetre, text="quitter", command= fenetre.destroy)
 
-debut()
+        Crapy.debut()
 
-#titre fenetre
+        """self.debut()"""
 
-fenetre.title("Craps")
+        #titre fenetre
 
-#fini
+        fenetre.title("Craps")
 
-fenetre.mainloop()
+        #fini
+
+        fenetre.mainloop()
+
+CrapsTk.creation_premiere_fenetre()

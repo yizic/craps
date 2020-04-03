@@ -144,7 +144,7 @@ class File:
 
         #titre fenetreDoc
 
-        fenetreDoc.title("MORPION2")
+        fenetreDoc.title("Documents")
 
         #fini
 
