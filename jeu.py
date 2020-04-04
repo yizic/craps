@@ -39,6 +39,8 @@ class craps:
         self.labelportefeuille = None
         self.labelentrypari = None
         self.entrypari = None
+        self.buttonsoumettre = None
+        self.labelportefeuille_new = None
 
     def debut_jeu(self):
 
@@ -48,6 +50,7 @@ class craps:
         self.labelportefeuille.grid(row = 1, columnspan = 2)
         self.labelentrypari.grid(row = 2, columnspan = 1)
         self.entrypari.grid(row = 2, columnspan = 2)
+        self.buttonsoumettre.grid(row = 3, columnspan = 2)
 
     def get_regles(self):
         return """Le Craps est un jeu de dés, que nous avons légèrement modifié dans le cadre de ce projet.
@@ -91,17 +94,19 @@ class craps:
         else:
             return False
 
-    def miser(self):
-        mise = 0
-        while(mise<=0 or mise > self.portefeuille):
-            mise=input("\nVous avez {} en poche. Combien vous voulez miser ? ==> ".format(self.portefeuille))
-            try:
-                mise = int(mise)
-            except ValueError:
-                print("\t\tMerci d'entrer une valeur numérique")
-                mise = 0
+    def miser(self, mise):
+
+        try:
+            mise = int(mise)
+        except ValueError:
+            print("\t\tMerci d'entrer une valeur numérique correcte")
+            mise = 0
+            return False
+
         self.mise = mise
         self.portefeuille -= mise
+
+        return True
 
     def lancer(self):
         return randint(1,6)
@@ -123,20 +128,32 @@ class craps:
             elif valeur == self.getCible():
                 self.jeuGagne()
 
-    @staticmethod
-    def lancer_jeu():
+    def lancer_jeu(self, miseEntree, fenetreGame):
 
-        jeu = craps(500)
+        if self.enCours():
+            self.debut()
+            miseOk = self.miser(miseEntree)
 
-        while jeu.enCours():
-            jeu.debut()
-            jeu.miser()
-            while jeu.getJoue():
-                jeu.analyse(jeu.lancer(), jeu.lancer())
+            if miseOk == True:
+                while self.getJoue():
+                    self.analyse(self.lancer(), self.lancer())
+                self.labelportefeuille.destroy()
+                self.labelportefeuille_new = Label(fenetreGame, text = self.portefeuille)
+                self.labelportefeuille_new.grid(row = 1, columnspan = 2)
 
-        print("\nVous n'avez plus rien à miser ! C'est la fin !")
+            else:
+                #TODO pop-up erreur.
+                print("erreur")
+
+                popErreur = Toplevel()
+                popErreur.title("Règles")
+
+                ErreurLab = Label(popErreur, text = "erreur de saisie !", background = "white")
+                ErreurLab.pack(side = "top", fill = "x", pady = 10)
+                BoutonPopErreur = Button(popErreur, text = "Ok", command = popErreur.destroy)
+                BoutonPopErreur.pack()
+                popErreur.mainloop()
     
-    @staticmethod
     def popInfoRegles():
 
         #Partie moche pour éviter d'avoir une référence... dsl.
@@ -152,7 +169,6 @@ class craps:
         BoutonPopRegles.pack()
         popRegles.mainloop()
 
-    @staticmethod
     def voir_jeu():
 
         print("===============")
@@ -181,6 +197,16 @@ class craps:
         game.labelentrypari = Label(fenetreGame, text = "Voici votre portefeuille :")
         game.entrypari = Entry(fenetreGame, text = "Entrez la valeur à miser ici !")
 
+        game.buttonsoumettre = Button(fenetreGame, text = "Parier !", command = lambda : lancer_recup_mise())
+
+        def lancer_recup_mise():
+
+            int_mise_donnee = game.entrypari.get()
+            print("int_mise_donnee")
+            print(int_mise_donnee)
+            game.lancer_jeu(int_mise_donnee, fenetreGame)
+
+
         #game.IntroLab.pack()
 
         game.debut_jeu()
@@ -189,6 +215,7 @@ class craps:
 
         fenetreGame.title("jeu")
 
-        #fini
+        #fin interface
 
         fenetreGame.mainloop()
+
