@@ -62,21 +62,21 @@ class CrapsTk:
 
         #truc a utiliser et detruire (ou remove)
 
-        Crapy.imagePhrase = PhotoImage(file="image/jeuDuCraps.png")
-        Crapy.regle = PhotoImage(file="image/regle.png")
-        Crapy.png_des = PhotoImage(file="image/des.png")
+        self.imagePhrase = PhotoImage(file="image/jeuDuCraps.png")
+        self.regle = PhotoImage(file="image/regle.png")
+        self.png_des = PhotoImage(file="image/des.png")
 
-        Crapy.question = Label(self.fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
-        Crapy.bouton_jouer = Button(self.fenetre, text = "jouer", command = lambda : Crapy.voir_jeu())
-        Crapy.bouton_docs = Button(self.fenetre, text = "voir les documents", command = File.voir_doc)
+        self.question = Label(self.fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
+        self.bouton_jouer = Button(self.fenetre, text = "jouer", command = lambda : self.voir_jeu())
+        self.bouton_docs = Button(self.fenetre, text = "voir les documents", command = File.voir_doc)
 
-        Crapy.canimgphrase = Canvas(self.fenetre, width=660, height=100, background ="white", highlightthickness =  0)
-        Crapy.canregle = Canvas(self.fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
-        Crapy.cancraps = Canvas(self.fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
+        self.canimgphrase = Canvas(self.fenetre, width=660, height=100, background ="white", highlightthickness =  0)
+        self.canregle = Canvas(self.fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
+        self.cancraps = Canvas(self.fenetre, width=330, height= 237, background ="white", highlightthickness =  0)
 
-        Crapy.bouton_quit = Button(self.fenetre, text="quitter", command= self.fenetre.destroy)
+        self.bouton_quit = Button(self.fenetre, text="quitter", command= self.fenetre.destroy)
 
-        Crapy.debut()
+        self.debut()
 
         """self.debut()"""
 
