@@ -14,6 +14,7 @@ from random import randint
 from tkinter import *
 from tkinter.messagebox import *
 
+
 class craps:
     def __init__(self, p):
 
@@ -95,7 +96,8 @@ class craps:
             return False
 
     def miser(self, mise):
-
+        
+        #TODO vérifier qu'on parie pas plus que portefeuille.
         try:
             mise = int(mise)
         except ValueError:
@@ -141,19 +143,49 @@ class craps:
                 self.labelportefeuille_new = Label(fenetreGame, text = self.portefeuille)
                 self.labelportefeuille_new.grid(row = 1, columnspan = 2)
 
+                if self.portefeuille <= 0:
+
+                    self.labelportefeuille_new = Label(fenetreGame, text = "plus d'argent !!")
+                    self.labelportefeuille_new.grid(row = 1, columnspan = 2)
+
+                    popPerdu = Tk()
+                    popPerdu.title("perdu !")
+
+                    ErreurLab = Label(popPerdu, text = "vous avez perdu !", background = "white")
+                    ErreurLab.pack(side = "top", fill = "x", pady = 10)
+                    BoutonPopPerduMenu = Button(popPerdu, text = "Retour au menu", command = lambda : popPerdu.destroy)
+                    BoutonPopPerduMenu.pack()
+                    BoutonPopPerduRejouer = Button(popPerdu, text = "Recommencer le jeu", command = lambda : self.recommencer_jeu(fenetreGame, popPerdu))
+                    BoutonPopPerduRejouer.pack()
+                    popPerdu.mainloop()
+
             else:
                 #TODO pop-up erreur.
                 print("erreur")
 
                 popErreur = Toplevel()
-                popErreur.title("Règles")
+                popErreur.title("mauvaise saisie !")
 
                 ErreurLab = Label(popErreur, text = "erreur de saisie !", background = "white")
                 ErreurLab.pack(side = "top", fill = "x", pady = 10)
                 BoutonPopErreur = Button(popErreur, text = "Ok", command = popErreur.destroy)
                 BoutonPopErreur.pack()
                 popErreur.mainloop()
-    
+
+
+ 
+    def recommencer_jeu(self, fenetreGame, popPerdu):
+        
+        fenetreGame.destroy()
+        popPerdu.destroy()
+        craps.voir_jeu()
+        
+    def retour_menu(self, fenetreGame, popPerdu):
+        from CrapsTk import main
+        popPerdu.destroy()
+        main()   
+        fenetreGame.destroy()
+
     def popInfoRegles():
 
         #Partie moche pour éviter d'avoir une référence... dsl.
@@ -168,6 +200,7 @@ class craps:
         BoutonPopRegles = Button(popRegles, text = "Ok", command = popRegles.destroy)
         BoutonPopRegles.pack()
         popRegles.mainloop()
+
 
     def voir_jeu():
 
@@ -190,7 +223,7 @@ class craps:
         positionDown = int(fenetreGame.winfo_screenheight()/3 - windowHeight/2)
         fenetreGame.geometry("+{}+{}".format(positionRight, positionDown))
 
-        game.imagePhrase = PhotoImage(file="image/leJeuDuMorpion.png")
+        game.imagePhrase = PhotoImage(file="image/jeuDuCraps.PNG")
         game.canimgphrase = Canvas(fenetreGame, width=660, height=100, background ="white", highlightthickness =  0)
         game.bouton_popup_infos = Button(fenetreGame, width=5, height=2, text = "?", command = lambda : craps.popInfoRegles())
         game.labelportefeuille = Label(fenetreGame, text = game.portefeuille)

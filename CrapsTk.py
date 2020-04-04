@@ -2,7 +2,7 @@ from tkinter import *
 from random import *
 import subprocess
 from File import *
-from Jeu import *
+from Jeu import craps
 
 
 #1er ecran
@@ -88,6 +88,8 @@ class CrapsTk:
 
         self.fenetre.mainloop()
 
-Crapy = CrapsTk()
+if __name__ == "__main__":
+    
+    Crapy = CrapsTk()
 
-Crapy.creation_premiere_fenetre()
+    Crapy.creation_premiere_fenetre()
