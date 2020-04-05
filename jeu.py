@@ -13,6 +13,7 @@ et pour le côté mise - gains que nous trouvons attractif !"""
 from random import randint
 from tkinter import *
 from tkinter.messagebox import *
+from File import *
 
 
 class craps:
@@ -32,6 +33,7 @@ class craps:
         self.tour = 1
         self.cible = 0
         self.joue = True
+        self.doc_deja_montre = []
 
         self.imagePhrase = None
         self.imphrase = None
@@ -120,7 +122,8 @@ class craps:
 
     def miser(self, mise):
         
-        #TODO vérifier qu'on parie pas plus que portefeuille.
+        if int(mise) > self.portefeuille:
+            return False
         try:
             mise = int(mise)
         except ValueError:
@@ -178,9 +181,7 @@ class craps:
 
     def lancer_jeu(self, miseEntree, fenetreGame):
 
-        print(self.joue)
-        print(self.portefeuille)
-        print(self.tour)
+
         if self.enCours():
             self.debut()
             miseOk = self.miser(miseEntree)
@@ -227,6 +228,12 @@ class craps:
             BoutonPopPerduRejouer = Button(popPerdu, text = "Recommencer le jeu", command = lambda : self.recommencer_jeu(fenetreGame, popPerdu))
             BoutonPopPerduRejouer.pack()
             popPerdu.mainloop()
+
+
+    def afficher_un_doc(self, fenetreGame):
+        File_jeu = File()
+        File_jeu.afficher_doc()
+        return
 
  
     def recommencer_jeu(self, fenetreGame, popPerdu):
