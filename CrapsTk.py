@@ -2,7 +2,7 @@ from tkinter import *
 from random import *
 import subprocess
 from File import *
-from Jeu import craps
+from jeu import craps
 
 
 #1er ecran
