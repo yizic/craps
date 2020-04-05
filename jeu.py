@@ -33,7 +33,27 @@ class craps:
         self.tour = 1
         self.cible = 0
         self.joue = True
-        self.doc_deja_montre = []
+        self.palier_max_atteind = 500
+        self.palier_suivant = 525
+        self.doc_non_montre = [("image/Rapport_Grillot_Brian.docx", "Attentes pro", "Compétences pro"),
+        ("image/Rapport_Cizey_Vincent.docx", "Attentes pro", "Compétences pro"),
+        ("image/Rapport_Grillot_Brian.docx", "Compétences pro", "Traits de personnalité"),
+        ("image/Rapport_Cizey_Vincent.docx", "Compétences pro", "Traits de personnalité"),
+        ("image/Rapport_Grillot_Brian.docx", "Traits de personnalité", "Centres d’intérêts"),
+        ("image/Rapport_Cizey_Vincent.docx", "Traits de personnalité", "Centres d’intérêts"),
+        ("image/Rapport_Grillot_Brian.docx", "Centres d’intérêts", "Itinéraire pro"),
+        ("image/Rapport_Cizey_Vincent.docx", "Centres d’intérêts", "Itinéraire pro"),
+        ("image/Rapport_Grillot_Brian.docx", "Itinéraire pro", "Raison des étapes"),
+        ("image/Rapport_Cizey_Vincent.docx", "Itinéraire pro", "Raison des étapes"),
+        ("image/Rapport_Grillot_Brian.docx", "Raison des étapes", "Influences des choix"),
+        ("image/Rapport_Cizey_Vincent.docx", "Raison des étapes", "Influences des choix"),
+        ("image/Rapport_Grillot_Brian.docx", "Influences des choix", "Contraintes perso"),
+        ("image/Rapport_Cizey_Vincent.docx", "Influences des choix", "Contraintes perso"),
+        ("image/Rapport_Grillot_Brian.docx", "Contraintes perso", "Accidents de parcours"),
+        ("image/Rapport_Cizey_Vincent.docx", "Contraintes perso", "Accidents de parcours"),
+        ("image/Rapport_Grillot_Brian.docx", "Accidents de parcours", "azertdyfguihcnhbever"),
+        ("image/Rapport_Cizey_Vincent.docx", "Accidents de parcours", "gvfsgnsehenifnnxbgdsfongf"),
+        ("image/CV_Grillot_Brian.png", "", ""), ("image/CV_Cizey_Vincent.png", "", "")]
 
         self.imagePhrase = None
         self.imphrase = None
@@ -55,26 +75,34 @@ class craps:
         self.labelmessage = None
         self.labelinstruction = None
         self.buttonretourmenu = None
+        self.labelmaxatteind = None
+        self.labelannoncemaxatteind = None
+        self.annonceresultatdes = None
+        self.resultatdes = None
 
     def debut_jeu(self):
 
         self.imphrase = self.canimgphrase.create_image(340, 55, image=self.imagePhrase)
         self.canimgphrase.grid(row = 0, column = 1, columnspan = 4)
         self.bouton_popup_infos.place(x = 0, y = 0)
-        self.labelportefeuille.grid(row = 1, column = 2)
-        self.labelannonceportefeuille.grid(row = 1, column = 1)
-        self.labelannonceentry.grid(row = 2, column = 1)
-        self.entrypari.grid(row = 2, column = 2)
+        self.labelportefeuille.grid(row = 1, column = 2, pady = 7)
+        self.labelannonceportefeuille.grid(row = 1, column = 1, pady = 7)
+        self.labelannonceentry.grid(row = 2, column = 1, pady = 7)
+        self.entrypari.grid(row = 2, column = 2, pady = 7)
         self.buttonsoumettre.grid(row = 3, column = 2)
-        self.labelannoncedes1.grid(row = 5, column = 1)
-        self.labelannoncedes2.grid(row = 5, column = 3)
-        self.labelcible.grid(row = 6, column = 2)
-        self.labelannoncecible.grid(row = 6, column = 1)
-        self.labelmessage.grid(row = 7, column = 2)
-        self.labelinstruction.grid(row = 8, column = 2)
+        self.labelannoncedes1.grid(row = 4, column = 1, pady = 7)
+        self.labelannoncedes2.grid(row = 4, column = 3, pady = 7)
+        self.annonceresultatdes.grid(row = 5, column = 1, pady = 7)
+        self.resultatdes.grid(row = 5, column = 2, pady = 7)
+        self.labelcible.grid(row = 6, column = 2, pady = 7)
+        self.labelannoncecible.grid(row = 6, column = 1, pady = 7)
+        self.labelmessage.grid(row = 7, column = 2, pady = 7)
+        self.labelinstruction.grid(row = 8, column = 2, pady = 7)
+        self.labelmaxatteind.grid(row = 9, column = 3, pady = 7)
+        self.labelannoncemaxatteind.grid(row = 9, column = 2, pady = 7)
 
-        self.labeldes1.grid(row = 5, column = 2)
-        self.labeldes2.grid(row = 5, column = 4)
+        self.labeldes1.grid(row = 4, column = 2, pady = 7)
+        self.labeldes2.grid(row = 4, column = 4, pady = 7)
 
         self.buttonretourmenu.grid(row = 0, column = 0)
 
@@ -91,13 +119,37 @@ class craps:
     def getJoue(self):
         return self.joue
     
-    def jeuGagne(self):
+    def jeuGagne(self, fenetreGame):
         print("Vous avez gagné {} ".format(2*self.mise))
         self.portefeuille += 2*self.mise
+        if self.portefeuille > self.palier_max_atteind:
+            self.palier_max_atteind = self.portefeuille
+        
+        self.entrypari.config(state = NORMAL)
+        self.labelannonceentry.config(text = "entrez le montant à jouer :")
+
         self.fin()      
 
-    def jeuPerdu(self):
-        print("Vous avez perdu !")      
+    def jeuPerdu(self, fenetreGame):
+        
+        if self.portefeuille <= 0 :
+
+            self.labelportefeuille.config(text = "plus d'argent !!")
+
+            popPerdu = Tk()
+            popPerdu.title("perdu !")
+
+            ErreurLab = Label(popPerdu, text = "vous avez perdu !", background = "white")
+            ErreurLab.pack(side = "top", fill = "x")
+            BoutonPopPerduMenu = Button(popPerdu, text = "Retour au menu", command = lambda : self.retour_menu(fenetreGame, popPerdu))
+            BoutonPopPerduMenu.pack()
+            BoutonPopPerduRejouer = Button(popPerdu, text = "Recommencer le jeu", command = lambda : self.recommencer_jeu(fenetreGame, popPerdu))
+            BoutonPopPerduRejouer.pack()
+            popPerdu.mainloop()
+
+        self.entrypari.config(state = NORMAL)
+        self.labelannonceentry.config(text = "entrez le montant à jouer :")
+
         self.fin()
 
     def debut(self):
@@ -122,13 +174,14 @@ class craps:
 
     def miser(self, mise):
         
-        if int(mise) > self.portefeuille:
-            return False
         try:
             mise = int(mise)
         except ValueError:
             print("\t\tMerci d'entrer une valeur numérique correcte")
             mise = 0
+            return False
+            
+        if int(mise) > self.portefeuille:
             return False
 
         self.mise = mise
@@ -139,18 +192,20 @@ class craps:
     def lancer(self):
         return randint(1,6)
 
-    def analyse(self, v1, v2):
+    def analyse(self, v1, v2, fenetreGame):
 
         valeur = v1 + v2
-        print("\n---> Vous avez tiré : {} et {}, ce qui fait {}".format(v1, v2, valeur))
+        self.resultatdes.config(text = valeur)
+
         if self.tour == 1:
             if valeur==7 or valeur==11:
-                self.jeuGagne()
+                self.jeuGagne(fenetreGame)
                 self.labelmessage.config(text = "Vous avez gagné {} dès le premier lancer !".format(2*self.mise))
                 self.labelinstruction.config(text = "Vous pouvez remiser maintenant !")
                 self.buttonsoumettre.config(text = "Parier !")
+                self.afficher_un_doc()
             elif valeur==2 or valeur==3 or valeur==12:
-                self.jeuPerdu()
+                self.jeuPerdu(fenetreGame)
                 self.labelmessage.config(text = "Vous avez perdu votre mise de {}, oh non...".format(self.mise))
                 self.labelinstruction.config(text = "Mais vous pouvez remiser maintenant ! Essayez donc !")
                 self.buttonsoumettre.config(text = "Parier !")
@@ -163,16 +218,17 @@ class craps:
 
         else:
             if valeur==7:
-                self.jeuPerdu()
+                self.jeuPerdu(fenetreGame)
                 self.labelmessage.config(text = "Vous avez perdu votre mise de {}, on y croyait pourtant...".format(self.mise))
                 self.labelinstruction.config(text = "ça donne envie de retenter non ?!")
                 self.buttonsoumettre.config(text = "Parier !")
 
             elif valeur == self.getCible():
-                self.jeuGagne()
+                self.jeuGagne(fenetreGame)
                 self.labelmessage.config(text = "La cible a été atteinte !! Félicitations ! {} en plus !".format(self.mise))
                 self.labelinstruction.config(text = "Plus d'argent = plus de paris !!!! oui c'est sain, pourquoi ?")
                 self.buttonsoumettre.config(text = "Parier !")
+                self.afficher_un_doc()
             
             else:
                 self.labelmessage.config(text = "Un coup pour rien... Allez on peut mieux faire !")
@@ -194,46 +250,42 @@ class craps:
                 popErreur.title("mauvaise saisie !")
 
                 ErreurLab = Label(popErreur, text = "erreur de saisie !", background = "white")
-                ErreurLab.pack(side = "top", fill = "x", pady = 10)
+                ErreurLab.pack(side = "top", fill = "x")
                 BoutonPopErreur = Button(popErreur, text = "Ok", command = popErreur.destroy)
                 BoutonPopErreur.pack()
                 popErreur.mainloop()
                 return
+        
+        self.entrypari.config(state = DISABLED)
+        self.labelannonceentry.config(text = "Vous avez misé : ")
 
         v1 = self.lancer()
         v2 = self.lancer()
         self.labeldes1.destroy()
         self.labeldes2.destroy()
         self.labeldes1_new = Label(fenetreGame, text = v1)
-        self.labeldes1_new.grid(row = 5, column = 2)
+        self.labeldes1_new.grid(row = 4, column = 2)
         self.labeldes2_new = Label(fenetreGame, text = v2)
-        self.labeldes2_new.grid(row = 5, column = 4)
+        self.labeldes2_new.grid(row = 4, column = 4)
 
-        self.analyse(v1, v2)
+        self.analyse(v1, v2, fenetreGame)
 
         self.labelcible.config(text = self.getCible())
         self.labelportefeuille.config(text = self.portefeuille)
 
-        if self.portefeuille <= 0:
 
-            self.labelportefeuille.config(text = "plus d'argent !!")
+    def afficher_un_doc(self):
 
-            popPerdu = Tk()
-            popPerdu.title("perdu !")
+        if self.palier_max_atteind >= self.palier_suivant:
+            nbr_affichés = (self.palier_suivant - self.palier_max_atteind) // 25
 
-            ErreurLab = Label(popPerdu, text = "vous avez perdu !", background = "white")
-            ErreurLab.pack(side = "top", fill = "x", pady = 10)
-            BoutonPopPerduMenu = Button(popPerdu, text = "Retour au menu", command = lambda : self.retour_menu(fenetreGame, popPerdu))
-            BoutonPopPerduMenu.pack()
-            BoutonPopPerduRejouer = Button(popPerdu, text = "Recommencer le jeu", command = lambda : self.recommencer_jeu(fenetreGame, popPerdu))
-            BoutonPopPerduRejouer.pack()
-            popPerdu.mainloop()
+        for i in range(0, nbr_affichés):    
+            l = len(self.doc_non_montre)
+            choix = randint(0,l)
+            File_jeu = File()
+            File_jeu.afficher_doc(self.doc_non_montre[choix][0], self.doc_non_montre[choix][1], self.doc_non_montre[choix][2])
+            self.doc_non_montre.pop(choix)
 
-
-    def afficher_un_doc(self, fenetreGame):
-        File_jeu = File()
-        File_jeu.afficher_doc()
-        return
 
  
     def recommencer_jeu(self, fenetreGame, popPerdu):
@@ -261,7 +313,7 @@ class craps:
         popRegles.title("Règles")
 
         IntroLab = Label(popRegles, text = to_show, background = "white")
-        IntroLab.pack(side = "top", fill = "x", pady = 10)
+        IntroLab.pack(side = "top", fill = "x")
         BoutonPopRegles = Button(popRegles, text = "Ok", command = popRegles.destroy)
         BoutonPopRegles.pack()
         popRegles.mainloop()
@@ -271,8 +323,8 @@ class craps:
         popQuitter = Tk()
         popQuitter.title("Vous voulez quitter ?")
 
-        QuitterLab = Label(popQuitter, text = "vous pouvez quitter ou  recommencer une partie.", background = "white")
-        QuitterLab.pack(side = "top", fill = "x", pady = 10)
+        QuitterLab = Label(popQuitter, text = "Vous pouvez quitter ou  recommencer une partie.", background = "white")
+        QuitterLab.pack(side = "top", fill = "x")
         BoutonpopQuitterMenu = Button(popQuitter, text = "Retour au menu", command = lambda : self.retour_menu(fenetreGame, popQuitter))
         BoutonpopQuitterMenu.pack()
         BoutonpopQuitterRejouer = Button(popQuitter, text = "Recommencer le jeu", command = lambda : self.recommencer_jeu(fenetreGame, popQuitter))
@@ -320,13 +372,19 @@ class craps:
         game.labeldes2 = Label(fenetreGame, text = "*****")
 
         game.labelannonceentry = Label(fenetreGame, text = "entrez le montant à jouer :")
-        game.entrypari = Entry(fenetreGame, text = "Entrez la valeur à miser ici !")
+        game.entrypari = Entry(fenetreGame)
 
         game.labelcible = Label(fenetreGame, text = "pas encore de cible")
         game.labelannoncecible = Label(fenetreGame, text = "cible pour gagner :")
 
         game.labelmessage = Label(fenetreGame, text = "Vous devez entrer une valeur à miser pour commencer.")
         game.labelinstruction = Label(fenetreGame, text = "Une fois entrée, la valeur ne peut plus être changée jusqu'au résultat.")
+
+        game.labelmaxatteind = Label(fenetreGame, text = game.palier_max_atteind)
+        game.labelannoncemaxatteind = Label(fenetreGame, text = "Palier maximum atteind : ")
+
+        game.resultatdes = Label(fenetreGame, text = 0)
+        game.annonceresultatdes = Label(fenetreGame, text = "Resultat des dés : \n(on fait même ça pour vous !)")
 
         game.buttonretourmenu = Button(fenetreGame, text = "retour au menu", command = lambda : game.quitter(fenetreGame))
 
