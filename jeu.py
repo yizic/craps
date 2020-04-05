@@ -79,6 +79,8 @@ class craps:
         self.labelannoncemaxatteind = None
         self.annonceresultatdes = None
         self.resultatdes = None
+        self.labelannoncepaliersuivant = None
+        self.labelpaliersuivant = None
 
     def debut_jeu(self):
 
@@ -100,6 +102,8 @@ class craps:
         self.labelinstruction.grid(row = 8, column = 2, pady = 7)
         self.labelmaxatteind.grid(row = 9, column = 3, pady = 7)
         self.labelannoncemaxatteind.grid(row = 9, column = 2, pady = 7)
+        self.labelpaliersuivant.grid(row = 10, column = 3, pady = 7)
+        self.labelannoncepaliersuivant.grid(row = 10, column = 2, pady = 7)
 
         self.labeldes1.grid(row = 4, column = 2, pady = 7)
         self.labeldes2.grid(row = 4, column = 4, pady = 7)
@@ -120,13 +124,16 @@ class craps:
         return self.joue
     
     def jeuGagne(self, fenetreGame):
-        print("Vous avez gagné {} ".format(2*self.mise))
+
         self.portefeuille += 2*self.mise
+        
         if self.portefeuille > self.palier_max_atteind:
             self.palier_max_atteind = self.portefeuille
         
         self.entrypari.config(state = NORMAL)
         self.labelannonceentry.config(text = "entrez le montant à jouer :")
+
+        self.tour = 1
 
         self.fin()      
 
@@ -149,6 +156,8 @@ class craps:
 
         self.entrypari.config(state = NORMAL)
         self.labelannonceentry.config(text = "entrez le montant à jouer :")
+
+        self.tour = 1
 
         self.fin()
 
@@ -177,7 +186,6 @@ class craps:
         try:
             mise = int(mise)
         except ValueError:
-            print("\t\tMerci d'entrer une valeur numérique correcte")
             mise = 0
             return False
             
@@ -225,7 +233,7 @@ class craps:
 
             elif valeur == self.getCible():
                 self.jeuGagne(fenetreGame)
-                self.labelmessage.config(text = "La cible a été atteinte !! Félicitations ! {} en plus !".format(self.mise))
+                self.labelmessage.config(text = "La cible a été atteinte !! Félicitations ! {} en plus !".format(2*self.mise))
                 self.labelinstruction.config(text = "Plus d'argent = plus de paris !!!! oui c'est sain, pourquoi ?")
                 self.buttonsoumettre.config(text = "Parier !")
                 self.afficher_un_doc()
@@ -241,10 +249,8 @@ class craps:
         if self.enCours():
             self.debut()
             miseOk = self.miser(miseEntree)
-            print("portefeuille : " + str(self.portefeuille))
 
             if miseOk == False:
-                print("erreur")
 
                 popErreur = Toplevel()
                 popErreur.title("mauvaise saisie !")
@@ -272,13 +278,22 @@ class craps:
 
         self.labelcible.config(text = self.getCible())
         self.labelportefeuille.config(text = self.portefeuille)
+        self.labelmaxatteind.config(text = self.palier_max_atteind)
 
 
     def afficher_un_doc(self):
 
-        if self.palier_max_atteind >= self.palier_suivant:
-            nbr_affichés = (self.palier_suivant - self.palier_max_atteind) // 25
+        nbr_affichés = 0
+        portefeuilleTemp = self.portefeuille
+        while portefeuilleTemp >= self.palier_suivant:
+            nbr_affichés += 1
+            portefeuilleTemp = portefeuilleTemp - 25
 
+        print("nbr_affichés : " + str(nbr_affichés))
+        self.palier_suivant += nbr_affichés * 25
+
+        self.labelpaliersuivant.config(text = self.palier_suivant)
+        
         for i in range(0, nbr_affichés):    
             l = len(self.doc_non_montre)
             choix = randint(0,l)
@@ -295,7 +310,6 @@ class craps:
         craps.voir_jeu()
         
     def retour_menu(self, fenetreGame, popPerdu):
-        print("retour menu")
         fenetreGame.destroy()
         popPerdu.destroy()
         import CrapsTk
@@ -333,10 +347,6 @@ class craps:
 
 
     def voir_jeu():
-
-        print("===============")
-        print("=  C R A P S  =")
-        print("===============")
 
         game = craps(500)
 
@@ -386,6 +396,9 @@ class craps:
         game.resultatdes = Label(fenetreGame, text = 0)
         game.annonceresultatdes = Label(fenetreGame, text = "Resultat des dés : \n(on fait même ça pour vous !)")
 
+        game.labelpaliersuivant = Label(fenetreGame, text = self.palier_suivant)
+        game.labelannoncepaliersuivant = Label(fenetreGame, text = "La prochaine récompense si vous atteignez : ")
+
         game.buttonretourmenu = Button(fenetreGame, text = "retour au menu", command = lambda : game.quitter(fenetreGame))
 
         game.buttonsoumettre = Button(fenetreGame, text = "Parier !", command = lambda : lancer_recup_mise())
@@ -393,8 +406,6 @@ class craps:
         def lancer_recup_mise():
 
             int_mise_donnee = game.entrypari.get()
-            print("int_mise_donnee")
-            print(int_mise_donnee)
             game.lancer_jeu(int_mise_donnee, fenetreGame)
 
         #game.IntroLab.pack()
