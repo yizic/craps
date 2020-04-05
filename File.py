@@ -61,6 +61,7 @@ class File:
 
     def afficher_doc(self, value, partie, partiesuiv):
         popup = Tk()
+        popup.configure(background="white")
 
         if "png" in value:
 
@@ -96,11 +97,12 @@ class File:
             
             fichier.close()
             
-            self.raport = Label(popup, text = text1, justify ='center', wraplength = 1000, font=("Arial", 18))
+            self.raport = Label(popup, text = text1, justify ='center', wraplength = 1000, font=("Arial", 18), background = "white")
             self.raport.grid(row=0,column=0)
-            self.raport2 = Label(popup, text = text, justify ='left', wraplength = 1000, font=("Arial", 12))
+            self.raport2 = Label(popup, text = text, justify ='left', wraplength = 1000, font=("Arial", 12), background = "white")
             self.raport2.grid(row=1,column=0)
-            popup.title(text1)
+            titrepage = value[6:]
+            popup.title(titrepage)
 
         
         popup.mainloop()

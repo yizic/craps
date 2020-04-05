@@ -29,7 +29,7 @@ class CrapsTk:
     def debut(self):
 
         self.imphrase = self.canimgphrase.create_image(340, 55, image = self.imagePhrase)
-        self.canimgphrase.grid(row=0, columnspan = 4)
+        self.canimgphrase.grid(row=0, column=0, columnspan=4)
         self.imregle = self.canregle.create_image(200, 120, image = self.regle)
         self.canregle.grid(row=3, column =0, columnspan = 2)
         self.image_des = self.cancraps.create_image(165, 118, image = self.png_des)
@@ -67,8 +67,8 @@ class CrapsTk:
         self.png_des = PhotoImage(file="image/des.png")
 
         self.question = Label(self.fenetre, text = "Souhaitez vous jouer ou voir les documents", background = "white")
-        self.bouton_jouer = Button(self.fenetre, text = "jouer", command = lambda : self.voir_jeu())
-        self.bouton_docs = Button(self.fenetre, text = "voir les documents", command = File.voir_doc)
+        self.bouton_jouer = Button(self.fenetre, width=40 , text = "jouer", command = lambda : self.voir_jeu())
+        self.bouton_docs = Button(self.fenetre, width=40 , text = "voir les documents", command = File.voir_doc)
 
         self.canimgphrase = Canvas(self.fenetre, width=660, height=100, background ="white", highlightthickness =  0)
         self.canregle = Canvas(self.fenetre, width=420, height= 237, background ="white", highlightthickness =  0)
