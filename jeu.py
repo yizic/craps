@@ -126,6 +126,8 @@ class craps:
     def jeuGagne(self, fenetreGame):
 
         self.portefeuille += 2*self.mise
+
+        self.labelportefeuille.config(text = self.portefeuille)
         
         if self.portefeuille > self.palier_max_atteind:
             self.palier_max_atteind = self.portefeuille
@@ -249,6 +251,7 @@ class craps:
         if self.enCours():
             self.debut()
             miseOk = self.miser(miseEntree)
+            self.labelportefeuille.config(text = self.portefeuille)
 
             if miseOk == False:
 
@@ -276,8 +279,8 @@ class craps:
 
         self.analyse(v1, v2, fenetreGame)
 
-        self.labelcible.config(text = self.getCible())
         self.labelportefeuille.config(text = self.portefeuille)
+        self.labelcible.config(text = self.cible)
         self.labelmaxatteind.config(text = self.palier_max_atteind)
 
 
@@ -285,6 +288,9 @@ class craps:
 
         nbr_affichés = 0
         portefeuilleTemp = self.portefeuille
+        if portefeuilleTemp < self.palier_suivant:
+            return
+
         while portefeuilleTemp >= self.palier_suivant:
             nbr_affichés += 1
             portefeuilleTemp = portefeuilleTemp - 25
@@ -293,13 +299,27 @@ class craps:
         self.palier_suivant += nbr_affichés * 25
 
         self.labelpaliersuivant.config(text = self.palier_suivant)
-        
-        for i in range(0, nbr_affichés):    
-            l = len(self.doc_non_montre)
-            choix = randint(0,l)
-            File_jeu = File()
-            File_jeu.afficher_doc(self.doc_non_montre[choix][0], self.doc_non_montre[choix][1], self.doc_non_montre[choix][2])
-            self.doc_non_montre.pop(choix)
+        self.labelmaxatteind.config(text = self.palier_max_atteind)
+
+        self.labelpaliersuivant.config(text = self.palier_suivant)
+           
+        l = len(self.doc_non_montre)
+        choix = randint(0, l - 1)
+        File_jeu = File()
+        File_jeu.afficher_doc(self.doc_non_montre[choix][0], self.doc_non_montre[choix][1], self.doc_non_montre[choix][2])
+        self.doc_non_montre.pop(choix)
+
+        if len(self.doc_non_montre) == 0:
+            popErreur = Toplevel()
+            popErreur.title("Bravo !")
+
+            ErreurLab = Label(popErreur, text = "Vous avez tout vu !", background = "white")
+            ErreurLab.pack(side = "top", fill = "x")
+            BoutonPopErreur = Button(popErreur, text = "Super jeu !", command = popErreur.destroy)
+            BoutonPopErreur.pack()
+            popErreur.mainloop()
+
+        return
 
 
  
@@ -396,7 +416,7 @@ class craps:
         game.resultatdes = Label(fenetreGame, text = 0)
         game.annonceresultatdes = Label(fenetreGame, text = "Resultat des dés : \n(on fait même ça pour vous !)")
 
-        game.labelpaliersuivant = Label(fenetreGame, text = self.palier_suivant)
+        game.labelpaliersuivant = Label(fenetreGame, text = game.palier_suivant)
         game.labelannoncepaliersuivant = Label(fenetreGame, text = "La prochaine récompense si vous atteignez : ")
 
         game.buttonretourmenu = Button(fenetreGame, text = "retour au menu", command = lambda : game.quitter(fenetreGame))
